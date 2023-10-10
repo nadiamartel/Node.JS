@@ -13,3 +13,5 @@ console.log('Leyendo el segundo archivo...')
 fs.readFile('./archivo2.txt', 'utf-8', (err, text) => {
   console.log('segundo texto:', text)
 })
+
+//entender como se ejecuta esto, teniendo en cuenta que es monoproceso!
