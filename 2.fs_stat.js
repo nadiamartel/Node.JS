@@ -1,5 +1,7 @@
 //Modulos Nativos
 //File System --> sistema de archivos
+//esto es lo mas utilizado en node js
+// ---> ESTO ES SINCRONO!
 
 const fs = require("node:fs") 
 
