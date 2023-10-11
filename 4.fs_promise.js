@@ -1,17 +1,20 @@
-const fs = require("node:fs")
+const fs = require("node:fs/promises")
 
-//aca ya es asincrono, y utilizamos un cb que se ejecuta cuando termina de leer todo
+//aca reemplazamos las cb por promesas
+// --> ASINCRONO SECUENCIAL!
 
 console.log('Leyendo el primer archivo...')
 
-fs.readFile('./archivo.txt', 'utf-8', (err, text) => { // <---- ejecutas este callback
-  console.log('primer texto:', text)
+fs.readFile('./archivo.txt', 'utf-8')
+    .then(text => { 
+        console.log('primer texto:', text)
 })
 
 console.log('--> Hacer cosas mientras lee el archivo...')
 
 console.log('Leyendo el segundo archivo...')
 
-fs.readFile('./archivo2.txt', 'utf-8', (err, text) => {
-  console.log('segundo texto:', text)
+fs.readFile('./archivo2.txt', 'utf-8')
+    .then(text => {
+         console.log('segundo texto:', text)
 })
