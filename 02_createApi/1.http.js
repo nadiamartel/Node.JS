@@ -3,13 +3,13 @@ const fs = require('node:fs')
 
 const desiredPort = process.env.PORT ?? 1234
 
-const processRequest = (req, res) => {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+const processRequest = (req, res) => { //aca creamos la fn y luego la pasamos como parametro
+  res.setHeader('Content-Type', 'text/html; charset=utf-8') //para que se pueda leer bien el texto (cabecera)
 
   if (req.url === '/') {
     res.end('<h1>Mi página</h1>')
-  } else if (req.url === '/imagen-super-bonita.png') {
-    fs.readFile('./placa.png', (err, data) => {
+  } else if (req.url === '/imagen-prox-destino.png') {
+    fs.readFile('./portu.png', (err, data) => {
       if (err) {
         res.statusCode = 500
         res.end('<h1>500 Internal Server Error</h1>')
