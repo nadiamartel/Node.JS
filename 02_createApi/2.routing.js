@@ -26,7 +26,7 @@ const processRequest = (req, res) => {
 
           // escuchar el evento data
           req.on('data', chunk => {
-            body += chunk.toString()
+            body += chunk.toString() //lo guardamos y lo pasamos a string
           })
 
           req.on('end', () => {
@@ -48,3 +48,9 @@ const processRequest = (req, res) => {
       }
   }
 }
+
+const server = http.createServer(processRequest);
+
+server.listen(1234, () =>{
+  console.log(`server listening on port http://localhost:1234`);
+})
