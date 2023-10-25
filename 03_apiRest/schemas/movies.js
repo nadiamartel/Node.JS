@@ -25,6 +25,7 @@ function validateMovie(input){
     return movieSchema.safeParse(input)
 }
 
+//el partial hace que cada una de las prop sean opcionales, si no esta no pasa nada, pero si esta la valida segun lo definimos arriba -.-
 function validatePartialMovie(input){
     return movieSchema.partial().safeParse(input)
 }
