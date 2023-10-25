@@ -11,8 +11,15 @@ app.get("/", (req, res) => {
     res.json({ message: "Hola Mundo" })
 })
 
+// *** CORS ***
+// métodos normales: GET/HEAD/POST --> CORS PRE-Flight
+// métodos complejos: PUT/PATCH/DELETE --> OPTIONS
+
+
 //Todos los recurso que sean Movies se identifican con /movies
 app.get("/movies", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*")
+
     const { genre } = req.query
     if (genre) {
         const moviesFiltered = movies.filter(movie => movie.genre.some(g => g.toLocaleLowerCase() === genre.toLocaleLowerCase()))
@@ -52,6 +59,19 @@ app.post("/movies", (req, res) => {
     movies.push(newMovie)
 
     res.status(201).json(newMovie)
+})
+
+app.delete('/movies/:id', (req, res) => {
+    const { id } = req.params
+    const movieIndex = movies.findIndex(movie => movie.id === id)
+
+    if (movieIndex === -1) {
+        return res.status(404).json({ message: 'Movie not found' })
+    }
+
+    movies.splice(movieIndex, 1)
+
+    return res.json({ message: 'Movie deleted' })
 })
 
 app.patch("/movies/:id", (req, res) => {
