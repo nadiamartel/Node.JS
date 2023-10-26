@@ -12,13 +12,13 @@ app.get("/", (req, res) => {
 })
 
 // *** CORS ***
-// métodos normales: GET/HEAD/POST --> CORS PRE-Flight
-// métodos complejos: PUT/PATCH/DELETE --> OPTIONS
+// métodos normales: GET/HEAD/POST
+// métodos complejos: PUT/PATCH/DELETE --> CORS PRE-Flight = req una petiicion especial OPTIONS
 
 
 //Todos los recurso que sean Movies se identifican con /movies
 app.get("/movies", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
 
     const { genre } = req.query
     if (genre) {
@@ -62,6 +62,8 @@ app.post("/movies", (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+
     const { id } = req.params
     const movieIndex = movies.findIndex(movie => movie.id === id)
 
@@ -96,6 +98,15 @@ app.patch("/movies/:id", (req, res) => {
 
     return res.json(updateMovie)
 })
+
+//configuracion OPTIONS para que funcione el botin de eliminar:
+app.options("/movies/:id", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+    res.header("Access-Control-Allow-Methods", "GET, PATCH, DELETE, PUT, POST");
+    // res.header("Access-Control-Allow-Headers", "Content-Type"); // Puedes agregar otras cabeceras según tus necesidades
+    res.status(200).send();
+});
+
 
 const PORT = process.env.PORT ?? 1234
 
