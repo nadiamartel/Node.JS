@@ -103,7 +103,7 @@ app.patch("/movies/:id", (req, res) => {
 app.options("/movies/:id", (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
     res.header("Access-Control-Allow-Methods", "GET, PATCH, DELETE, PUT, POST");
-    // res.header("Access-Control-Allow-Headers", "Content-Type"); // Puedes agregar otras cabeceras según tus necesidades
+    
     res.status(200).send();
 });
 
