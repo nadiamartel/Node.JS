@@ -1,11 +1,19 @@
-const express = require("express")
-const movies = require("./movies.json")
-const crypto = require("node:crypto")
-const { validateMovie, validatePartialMovie } = require("./schemas/movies")
+import express, { json } from "express"
+import { randomUUID } from "node:crypto"
+import { validateMovie, validatePartialMovie } from "./schemas/movies.js"
 const app = express()
 
+//como leer un JSON en ESModules:
+//import fs from "node:fs"
+//const movies = JSON.parse(fs.readFileSync("./movies.json", "uft-8"))
+
+//como leer un JSON en ESModules >>por ahora<<:
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const movies = require("./movies.json")
+
 app.disable("x-powered-by") //quita el header x-powered-by: Express
-app.use(express.json())
+app.use(json())
 
 app.get("/", (req, res) => {
     res.json({ message: "Hola Mundo" })
@@ -44,7 +52,7 @@ app.post("/movies", (req, res) => {
     }
     //esto ira a parar a la base de datos luego
     const newMovie = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         ...result.data
         // title,
         // genre,

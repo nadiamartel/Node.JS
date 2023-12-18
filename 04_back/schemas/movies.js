@@ -1,4 +1,4 @@
-const z = require("zod")
+import z from "zod";
 
 const movieSchema = z.object({
     tittle: z.string({
@@ -21,16 +21,11 @@ const movieSchema = z.object({
     )
 })
 
-function validateMovie(input){
+export function validateMovie(input){
     return movieSchema.safeParse(input)
 }
 
 //el partial hace que cada una de las prop sean opcionales, si no esta no pasa nada, pero si esta la valida segun lo definimos arriba -.-
-function validatePartialMovie(input){
+export function validatePartialMovie(input){
     return movieSchema.partial().safeParse(input)
-}
-
-module.exports = {
-    validateMovie,
-    validatePartialMovie
 }
