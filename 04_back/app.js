@@ -1,16 +1,11 @@
 import express, { json } from "express"
 import { randomUUID } from "node:crypto"
 import { validateMovie, validatePartialMovie } from "./schemas/movies.js"
+import { readJSON } from "./utils.js"
+
 const app = express()
 
-//como leer un JSON en ESModules:
-//import fs from "node:fs"
-//const movies = JSON.parse(fs.readFileSync("./movies.json", "uft-8"))
-
-//como leer un JSON en ESModules >>por ahora<<:
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const movies = require("./movies.json")
+const movies = readJSON("./movies.json")
 
 app.disable("x-powered-by") //quita el header x-powered-by: Express
 app.use(json())
